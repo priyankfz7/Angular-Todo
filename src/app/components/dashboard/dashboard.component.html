@@ -1,0 +1,135 @@
+<app-navbar></app-navbar>
+<div *ngIf="isAuth; then dashboard; else warning"></div>
+
+<ng-template #dashboard>
+  <div class="add-todo">
+    <form
+      #addTaskForm="ngForm"
+      (ngSubmit)="onSubmit(addTaskForm)"
+      ngNativeValidate
+    >
+      <input
+        type="text"
+        placeholder="Enter Title"
+        required
+        name="title"
+        ngModel
+      />
+      <button [disabled]="addLoad">{{ addLoad ? "wait..." : "ADD" }}</button>
+    </form>
+  </div>
+  <div class="task-wrap">
+    <div *ngFor="let task of tasks" class="single-task">
+      <div>
+        <p class="task-title">{{ task.title }}</p>
+        <div>
+          <button (click)="deleteTask(task._id)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="red"
+              class="bi bi-trash3-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-toggle="modal"
+            data-target="#exampleModalCenter"
+            (click)="changeModalProps(task)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="blue"
+              class="bi bi-pencil-square"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div *ngIf="task.status; then thenBlock; else elseBlock"></div>
+
+        <ng-template #thenBlock><p class="completed">completed</p></ng-template>
+        <ng-template #elseBlock><p class="pending">pending</p></ng-template>
+        <p>{{ task.date | date }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModalCenter"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Edit Task</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label" for="m-t">Enter new title</label>
+          <input
+            type="text"
+            id="m-t"
+            placeholder="new title here"
+            #modeltitle
+            ngModel
+            (ngModelChange)="onChange($event)"
+            [value]="modalProps.title"
+          />
+          <label class="form-label" for="tog-btn"
+            >task status:
+            {{ modalProps.status ? "completed" : "pending" }}</label
+          >
+          <button (click)="toggleStatus()" id="tog-btn">
+            Mark as {{ modalProps.status ? "pending" : "completed" }}
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="updateTask()"
+            data-dismiss="modal"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #warning>
+  <p>not logged in</p>
+</ng-template>

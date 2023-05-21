@@ -1,0 +1,111 @@
+.single-task > div:nth-child(1) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+.single-task button {
+  border: 0px;
+  margin-right: 10px;
+  background-color: white;
+}
+.single-task > div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+  border-bottom: 2px solid gainsboro;
+  padding: 5px;
+}
+.task-wrap {
+  max-width: 850px;
+  margin: auto;
+  margin-top: 30px;
+}
+.task-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.pending {
+  background-color: rgb(241, 241, 0);
+  padding: 0;
+  border-radius: 3px;
+  color: rgb(66, 58, 58);
+  font-weight: bold;
+  padding: 0 3px 0 3px;
+}
+.completed {
+  background-color: #7dedb3;
+  padding: 0;
+  border-radius: 3px;
+  color: rgb(66, 58, 58);
+  font-weight: bold;
+  padding: 0 3px 0 3px;
+}
+.add-todo {
+  max-width: 850px;
+  margin: auto;
+  margin-top: 10px;
+  padding: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  border-radius: 7px;
+}
+.add-todo form input {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid gray;
+
+  border-radius: 5px;
+}
+
+.add-todo button {
+  background-color: #8800c7;
+  padding: 10px 40px 10px 40px;
+
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  color: white;
+  font-weight: bold;
+  border: 0;
+  border-radius: 5px;
+}
+.modal-body input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid gainsboro;
+  border-radius: 10px;
+}
+#tog-btn {
+  display: block;
+  border: 2px solid #bc71df;
+  border-radius: 5px;
+  margin-top: 8px;
+  color: #bc71df;
+  background-color: white;
+  padding: 7px 15px 7px 15px;
+}
+@media screen and (max-width: 850px) {
+  .add-todo {
+    width: 70%;
+  }
+  .task-wrap {
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .add-todo {
+    width: 85%;
+  }
+  .task-wrap {
+    width: 85%;
+    margin: auto;
+    margin-top: 30px;
+  }
+}

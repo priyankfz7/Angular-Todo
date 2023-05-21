@@ -1,0 +1,25 @@
+.nav {
+  padding: 10px;
+  background-color: #8800c7;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav > a {
+  text-decoration: none;
+}
+.nav ul {
+  list-style: none;
+  display: flex;
+}
+.nav li button,
+a {
+  background-color: #8800c7;
+  border: 0;
+  color: white;
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+
+  text-decoration: underline;
+}
